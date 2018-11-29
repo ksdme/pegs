@@ -1,9 +1,9 @@
 {
     // Grammar should have better structure.
     // This essentially is duplicating rules.
-	function evalx(lhs, symbol, rhs) {
-    	switch (symbol) {
-        	case '+': return lhs + rhs;
+    function evalx(lhs, symbol, rhs) {
+        switch (symbol) {
+            case '+': return lhs + rhs;
             case '-': return lhs - rhs;
             case '*': return lhs * rhs;
             case '/': return lhs / rhs;
@@ -12,34 +12,33 @@
 }
 
 start
-	= expression
+    = expression
 
 expression
-	= lhs:primary symbol:symbol rhs:expression {
-    	return evalx(lhs, symbol, rhs);
+    = lhs:primary symbol:symbol rhs:expression {
+        return evalx(lhs, symbol, rhs);
     }
 
     / primary
 
 primary
-	= '(' value:expression ')' {
-    	return value;
+    = '(' value:expression ')' {
+        return value;
       }
 
     / lhs:integer symbol:symbol rhs:integer {
-    	return evalx(lhs, symbol, rhs);
+        return evalx(lhs, symbol, rhs);
     }
 
     / integer
 
 symbol
-	= '*'
+    = '*'
     / '/'
     / '+'
     / '-'
 
 integer
-	= neg:'-'? digits:([0-9]+) {
-    	return (!!neg ? -1 : 1)*parseInt(digits.join(''));
+    = neg:'-'? digits:([0-9]+) {
+        return (!!neg ? -1 : 1)*parseInt(digits.join(''));
     }
-
